@@ -11,7 +11,7 @@ AutoML Video Edge Library is an open source engine used for inferencing models
 trained using AutoML Video. It supports running Tensorflow, TF-TRT, TFLite, and
 EdgeTPU-optimized TFLite models.
 
-Originally Developed for Developing For:
+Originally Developed For:
 
 * [Linux Desktop](#for-linux-desktop)
 * [Coral Device](#for-coral-device)
