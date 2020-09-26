@@ -218,52 +218,57 @@ class SortObjectTracker(BaseObjectDetectionInference):
                                          detection_annotations):
       converted_detections = []
       # Converts to MediaPipe Detection proto.
-
+      location_data_for_update = []
+      class_names = []
+      confidence_scores = []
       for idx, annotation in enumerate(detection_annotations):
-        print (annotation)
-        print (detection_annotations)
+      #  print (annotation)
+      #  print (detection_annotations)
         detection = []
+        class_names.append(annotation.class_name)
+        confidence_scores.append(float(annotation.confidence_score))
         detection.append(annotation.timestamp) #TimeStamp
         detection.append(annotation.class_name)#ClassName
-        detection.append(annotation.confidence_score)#ConfidenceScore
+        detection.append(float(annotation.confidence_score))#ConfidenceScore
         detection.append(idx)
         location_data = []
         relative_bounding_box = []
-        relative_bounding_box.append(annotation.bbox.left)#Xmin / left
-        relative_bounding_box.append(annotation.bbox.top)#Ymin / top
-        relative_bounding_box.append(annotation.bbox.right - annotation.bbox.left) #Width
-        relative_bounding_box.append(annotation.bbox.bottom - annotation.bbox.top) #Height
+        relative_bounding_box.append(float(annotation.bbox.left))#Xmin / left
+        relative_bounding_box.append(float(annotation.bbox.top))#Ymin / top
+        relative_bounding_box.append(float(annotation.bbox.right) - float(annotation.bbox.left)) #Width
+        relative_bounding_box.append(float(annotation.bbox.bottom) - float(annotation.bbox.top)) #Height
         location_data.append(relative_bounding_box)
         detection.append(location_data)
         converted_detections.append(detection)
-      tracked_annotations = self.update(np.array(converted_detections))
+        location_data_for_update.append([relative_bounding_box[0],relative_bounding_box[1],relative_bounding_box[2],relative_bounding_box[3],float(annotation.confidence_score)])
+      print(location_data_for_update)
+
+      tracked_annotations = self.update(np.array(location_data_for_update))
       print (tracked_annotations)
       # Inputs annotations into mediapipe tracker.
       #tracked_annotations = self._mediapipe_tracker.process(
        #   timestamp, converted_detections, np_frame)
 
       # Converts back to AutoML Video Edge detection structs.
-      for tracked_annotation in tracked_annotations:
-        highest_idx = tracked_annotation.score.index(
-            max(tracked_annotation.score))
+      for id, tracked_annotation in enumerate(tracked_annotations):
+        #highest_idx = tracked_annotation.score.index(
+        #    max(tracked_annotation.score))
         output_annotation = ObjectTrackingAnnotation(
-            timestamp=timestamp,
-            track_id=tracked_annotation.detection_id,
-            class_id=1 if tracked_annotation.label_id else -1,
-            class_name=tracked_annotation.label[highest_idx]
-            if tracked_annotation.label else '',
-            confidence_score=tracked_annotation.score[highest_idx],
+            timestamp=float(timestamp),
+            track_id=int(tracked_annotation[4]),
+            class_id=1 if tracked_annotation[4] else -1,
+            class_name=class_names[id],
+           # if class_name else '',
+            confidence_score=confidence_scores[id],
             bbox=NormalizedBoundingBox(
-                left=tracked_annotation.location_data.relative_bounding_box
-                .xmin,
-                top=tracked_annotation.location_data.relative_bounding_box.ymin,
-                right=tracked_annotation.location_data.relative_bounding_box
-                .xmin +
-                tracked_annotation.location_data.relative_bounding_box.width,
-                bottom=tracked_annotation.location_data.relative_bounding_box
-                .ymin +
-                tracked_annotation.location_data.relative_bounding_box.height))
+                left=tracked_annotation[0],
+                top=tracked_annotation[1],
+                right=tracked_annotation[2] -
+                tracked_annotation[0],
+                bottom=tracked_annotation[3] -
+                tracked_annotation[1]))
         annotations.append(output_annotation)
+        
       return True
     else:
       return False
