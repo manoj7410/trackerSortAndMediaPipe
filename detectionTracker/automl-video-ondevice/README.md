@@ -1,3 +1,10 @@
+# ORIGINAL SORT CODE
+https://github.com/abewley/sort
+
+# ORIGINAL MediaPipe Code
+https://github.com/google/automl-video-ondevice
+
+
 # AutoML Video Edge Library
 
 AutoML Video Edge Library is an open source engine used for inferencing models
