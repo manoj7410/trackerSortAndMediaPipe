@@ -218,20 +218,23 @@ class SortObjectTracker(BaseObjectDetectionInference):
                                          detection_annotations):
       converted_detections = []
       # Converts to MediaPipe Detection proto.
+
       for idx, annotation in enumerate(detection_annotations):
-        detection = {}
-        detection.timestamp_usec = timestamp
-        detection.label = [annotation.class_name]
-        detection.score = [annotation.confidence_score]
-        detection.detection_id = idx
-        location_data = {}
-        relative_bounding_box = {}
-        relative_bounding_box.xmin = annotation.bbox.left
-        relative_bounding_box.ymin = annotation.bbox.top
-        relative_bounding_box.width = annotation.bbox.right - annotation.bbox.left
-        relative_bounding_box.height = annotation.bbox.bottom - annotation.bbox.top
-        location_data.relative_bounding_box = relative_bounding_box
-        detection.location_data = location_data
+        print (annotation)
+        print (detection_annotations)
+        detection = []
+        detection.append(annotation.timestamp) #TimeStamp
+        detection.append(annotation.class_name)#ClassName
+        detection.append(annotation.confidence_score)#ConfidenceScore
+        detection.append(idx)
+        location_data = []
+        relative_bounding_box = []
+        relative_bounding_box.append(annotation.bbox.left)#Xmin / left
+        relative_bounding_box.append(annotation.bbox.top)#Ymin / top
+        relative_bounding_box.append(annotation.bbox.right - annotation.bbox.left) #Width
+        relative_bounding_box.append(annotation.bbox.bottom - annotation.bbox.top) #Height
+        location_data.append(relative_bounding_box)
+        detection.append(location_data)
         converted_detections.append(detection)
       tracked_annotations = self.update(np.array(converted_detections))
       print (tracked_annotations)
