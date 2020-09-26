@@ -11,11 +11,10 @@ AutoML Video Edge Library is an open source engine used for inferencing models
 trained using AutoML Video. It supports running Tensorflow, TF-TRT, TFLite, and
 EdgeTPU-optimized TFLite models.
 
-I'm Developing For:
+Originally Developed for Developing For:
 
 * [Linux Desktop](#for-linux-desktop)
 * [Coral Device](#for-coral-device)
-* [NVIDIA Jetson](#for-nvidia-jetson)
 
 # For Linux Desktop
 -------------------
@@ -86,18 +85,6 @@ After that is done downloading, move into the directory.
 
 `python3 examples/video_file_demo.py --model=data/traffic_model_edgetpu.tflite`
 
-# For NVIDIA Jetson
--------------------
-
-## Prerequisites
-
-```
-sudo apt-get update
-sudo apt-get install git
-sudo apt-get install python3-pip
-sudo apt-get install python3-opencv
-pip3 install numpy
-```
 
 ## Get the Code
 
