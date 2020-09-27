@@ -21,9 +21,9 @@ import os
 import numpy as np
 import matplotlib
 matplotlib.use('TkAgg')
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-#from skimage import io
+from skimage import io
 from automl_video_ondevice.object_tracking.base_object_detection import BaseObjectDetectionInference
 import glob
 import time
@@ -216,62 +216,47 @@ class SortObjectTracker(BaseObjectDetectionInference):
     detection_annotations = []
     if self._object_detection_engine.run(timestamp, np_frame,
                                          detection_annotations):
-      converted_detections = []
-      # Converts to MediaPipe Detection proto.
-      location_data_for_update = []
-      class_names = []
+      detections = [] #np.array([])
       confidence_scores = []
-      for idx, annotation in enumerate(detection_annotations):
-      #  print (annotation)
-      #  print (detection_annotations)
-        detection = []
-        class_names.append(annotation.class_name)
-        confidence_scores.append(float(annotation.confidence_score))
-        detection.append(annotation.timestamp) #TimeStamp
-        detection.append(annotation.class_name)#ClassName
-        detection.append(float(annotation.confidence_score))#ConfidenceScore
-        detection.append(idx)
-        location_data = []
-        relative_bounding_box = []
-        relative_bounding_box.append(float(annotation.bbox.left))#Xmin / left
-        relative_bounding_box.append(float(annotation.bbox.top))#Ymin / top
-        relative_bounding_box.append(float(annotation.bbox.right) - float(annotation.bbox.left)) #Width
-        relative_bounding_box.append(float(annotation.bbox.bottom) - float(annotation.bbox.top)) #Height
-        location_data.append(relative_bounding_box)
-        detection.append(location_data)
-        converted_detections.append(detection)
-        location_data_for_update.append([relative_bounding_box[0],relative_bounding_box[1],relative_bounding_box[2],relative_bounding_box[3],float(annotation.confidence_score)])
-      print(location_data_for_update)
+      detection_class = []
+      class_ids = []
+      #print('num objs: ',len(detection_annotations), detection_annotations)
+      for n in range (0,len(detection_annotations)):
+        element=[] # np.array([])
+        element.append(detection_annotations[n].bbox.left)
+        element.append(detection_annotations[n].bbox.top)
+        element.append(detection_annotations[n].bbox.right)
+        element.append(detection_annotations[n].bbox.bottom)
+        element.append(detection_annotations[n].confidence_score)
+        confidence_scores.append(detection_annotations[n].confidence_score)   #    print('element= ',element)
+        detections.append(element)    #      print('dets: ',dets)
+        detection_class.append(detection_annotations[n].class_name)
+        class_ids.append(detection_annotations[n].class_id)
+      detections=np.array(detections)
+      trdata = []
+      if detections.any():
+        trdata = self.update(detections)
 
-      tracked_annotations = self.update(np.array(location_data_for_update))
-      print (tracked_annotations)
-      # Inputs annotations into mediapipe tracker.
-      #tracked_annotations = self._mediapipe_tracker.process(
-       #   timestamp, converted_detections, np_frame)
-
-      # Converts back to AutoML Video Edge detection structs.
-      for id, tracked_annotation in enumerate(tracked_annotations):
-        #highest_idx = tracked_annotation.score.index(
-        #    max(tracked_annotation.score))
+      for i,tracked_annotation in enumerate(trdata):
         output_annotation = ObjectTrackingAnnotation(
-            timestamp=float(timestamp),
+            timestamp=timestamp,
             track_id=int(tracked_annotation[4]),
-            class_id=1 if tracked_annotation[4] else -1,
-            class_name=class_names[id],
-           # if class_name else '',
-            confidence_score=confidence_scores[id],
+            class_id=class_ids[i]
+            if i < len(class_ids) else 1,
+            class_name=detection_class[i]
+            if i < len(detection_class) else '',
+            confidence_score=float(confidence_scores[i])
+            if i < len(confidence_scores) else 0.25, 
             bbox=NormalizedBoundingBox(
                 left=tracked_annotation[0],
                 top=tracked_annotation[1],
-                right=tracked_annotation[2] -
-                tracked_annotation[0],
-                bottom=tracked_annotation[3] -
-                tracked_annotation[1]))
+                right=tracked_annotation[2],
+                bottom=tracked_annotation[3]))
         annotations.append(output_annotation)
-        
       return True
     else:
-      return False
+      return False  
+
 
   def update(self, dets=np.empty((0, 5))):
     """
@@ -318,79 +303,4 @@ class SortObjectTracker(BaseObjectDetectionInference):
       return np.concatenate(ret)
     return np.empty((0,5))
 
-def parse_args():
-    """Parse input arguments."""
-    parser = argparse.ArgumentParser(description='SORT demo')
-    parser.add_argument('--display', dest='display', help='Display online tracker output (slow) [False]',action='store_true')
-    parser.add_argument("--seq_path", help="Path to detections.", type=str, default='data')
-    parser.add_argument("--phase", help="Subdirectory in seq_path.", type=str, default='train')
-    parser.add_argument("--max_age", 
-                        help="Maximum number of frames to keep alive a track without associated detections.", 
-                        type=int, default=1)
-    parser.add_argument("--min_hits", 
-                        help="Minimum number of associated detections before track is initialised.", 
-                        type=int, default=3)
-    parser.add_argument("--iou_threshold", help="Minimum IOU for match.", type=float, default=0.3)
-    args = parser.parse_args()
-    return args
 
-if __name__ == '__main__':
-  '''all train
-  args = parse_args()
-  display = args.display
-  phase = args.phase
-  total_time = 0.0
-  total_frames = 0
-  colours = np.random.rand(32, 3) #used only for display
-  if(display):
-    if not os.path.exists('mot_benchmark'):
-      print('\n\tERROR: mot_benchmark link not found!\n\n    Create a symbolic link to the MOT benchmark\n    (https://motchallenge.net/data/2D_MOT_2015/#download). E.g.:\n\n    $ ln -s /path/to/MOT2015_challenge/2DMOT2015 mot_benchmark\n\n')
-      exit()
-    plt.ion()
-    fig = plt.figure()
-    ax1 = fig.add_subplot(111, aspect='equal')
-
-  if not os.path.exists('output'):
-    os.makedirs('output')
-  pattern = os.path.join(args.seq_path, phase, '*', 'det', 'det.txt')
-  for seq_dets_fn in glob.glob(pattern):
-    mot_tracker = SortObjectTracker(max_age=args.max_age, 
-                       min_hits=args.min_hits,
-                       iou_threshold=args.iou_threshold) #create instance of the SORT tracker
-    seq_dets = np.loadtxt(seq_dets_fn, delimiter=',')
-    seq = seq_dets_fn[pattern.find('*'):].split('/')[0]
-    
-    with open('output/%s.txt'%(seq),'w') as out_file:
-      print("Processing %s."%(seq))
-      for frame in range(int(seq_dets[:,0].max())):
-        frame += 1 #detection and frame numbers begin at 1
-        dets = seq_dets[seq_dets[:, 0]==frame, 2:7]
-        dets[:, 2:4] += dets[:, 0:2] #convert to [x1,y1,w,h] to [x1,y1,x2,y2]
-        total_frames += 1
-
-        if(display):
-          fn = 'mot_benchmark/%s/%s/img1/%06d.jpg'%(phase, seq, frame)
-          im =io.imread(fn)
-          ax1.imshow(im)
-          plt.title(seq + ' Tracked Targets')
-
-        start_time = time.time()
-        trackers = mot_tracker.update(dets)
-        cycle_time = time.time() - start_time
-        total_time += cycle_time
-
-        for d in trackers:
-          print('%d,%d,%.2f,%.2f,%.2f,%.2f,1,-1,-1,-1'%(frame,d[4],d[0],d[1],d[2]-d[0],d[3]-d[1]),file=out_file)
-          if(display):
-            d = d.astype(np.int32)
-            ax1.add_patch(patches.Rectangle((d[0],d[1]),d[2]-d[0],d[3]-d[1],fill=False,lw=3,ec=colours[d[4]%32,:]))
-
-        if(display):
-          fig.canvas.flush_events()
-          plt.draw()
-          ax1.cla()
-
-  print("Total Tracking took: %.3f seconds for %d frames or %.1f FPS" % (total_time, total_frames, total_frames / total_time))
-
-  if(display):
-    print("Note: to get real runtime results run without the option: --display")'''
