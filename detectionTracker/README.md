@@ -46,7 +46,7 @@ If you plan on running Tensorflow models on desktop:
 `git clone https://github.com/manoj7410/trackerSortAndMediaPipe.git`
 
 After that is done downloading, move into the directory.  
-`cd trackerSortAndMediaPipe/detectionTracker/automl-video-ondevice/examples/`
+`cd trackerSortAndMediaPipe/detectionTracker/examples/`
 
 ## Running an Example
 
@@ -79,7 +79,7 @@ pip3 install numpy
 `git clone https://github.com/manoj7410/trackerSortAndMediaPipe.git`
 
 After that is done downloading, move into the directory.  
-`cd trackerSortAndMediaPipe/detectionTracker/automl-video-ondevice/examples/`
+`cd trackerSortAndMediaPipe/detectionTracker/examples/`
 
 ## Running an Example with sort tracker
 
