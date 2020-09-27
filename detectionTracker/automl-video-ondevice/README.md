@@ -81,18 +81,11 @@ pip3 install numpy
 After that is done downloading, move into the directory.  
 `cd automl-video-ondevice`
 
-## Running an Example
+## Running an Example with sort tracker
 
-`python3 examples/video_file_demo.py --model=data/traffic_model_edgetpu.tflite`
+`python3 examples/video_file_demo.py --model=data/traffic_model_edgetpu.tflite` --use_tracker sort
 
+## Running an Example with MediaPipe tracker
 
-## Get the Code
+`python3 examples/video_file_demo.py --model=data/traffic_model_edgetpu.tflite` --use_tracker BASIC
 
-`git clone https://github.com/google/automl-video-ondevice`
-
-After that is done downloading, move into the directory.  
-`cd automl-video-ondevice`
-
-## Running an Example
-
-`python3 examples/video_file_demo.py --model=data/traffic_model_trt.pb`
