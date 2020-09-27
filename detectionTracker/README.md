@@ -43,18 +43,18 @@ If you plan on running Tensorflow models on desktop:
 
 ## Get the Code
 
-`git clone https://github.com/google/automl-video-ondevice`
+`git clone https://github.com/manoj7410/trackerSortAndMediaPipe.git`
 
 After that is done downloading, move into the directory.  
-`cd automl-video-ondevice`
+`cd trackerSortAndMediaPipe/detectionTracker/automl-video-ondevice/examples/`
 
 ## Running an Example
 
 For TFLite:  
-`python3 examples/video_file_demo.py --model=data/traffic_model.tflite`
+`python3 video_file_demo.py --model=data/traffic_model.tflite`
 
 For Tensorflow:  
-`python3 examples/video_file_demo.py --model=data/traffic_model.pb`
+`python3 video_file_demo.py --model=data/traffic_model.pb`
 
 # For Coral Device
 -------------------
@@ -76,23 +76,16 @@ pip3 install numpy
 
 ## Get the Code
 
-`git clone https://github.com/google/automl-video-ondevice`
+`git clone https://github.com/manoj7410/trackerSortAndMediaPipe.git`
 
 After that is done downloading, move into the directory.  
-`cd automl-video-ondevice`
+`cd trackerSortAndMediaPipe/detectionTracker/automl-video-ondevice/examples/`
 
-## Running an Example
+## Running an Example with sort tracker
 
-`python3 examples/video_file_demo.py --model=data/traffic_model_edgetpu.tflite`
+`python3 examples/video_file_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker sort`
 
+## Running an Example with MediaPipe tracker
 
-## Get the Code
+`python3 examples/video_file_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker BASIC`
 
-`git clone https://github.com/google/automl-video-ondevice`
-
-After that is done downloading, move into the directory.  
-`cd automl-video-ondevice`
-
-## Running an Example
-
-`python3 examples/video_file_demo.py --model=data/traffic_model_trt.pb`
