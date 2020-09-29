@@ -36,20 +36,20 @@ After that is done downloading, move into the directory.
 
 ## Running an Example with sort tracker
 
-`python3 video_file_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker sort`
+`python3 video_file_demo.py --use_tracker sort`
 
 ## OR to run the demo with Camera
-`python3 camera_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker sort`
+`python3 camera_demo.py --use_tracker sort`
 
 
 ## Running an Example with MediaPipe tracker
 
-`python3 video_file_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker mediapipe`
+`python3 video_file_demo.py --use_tracker mediapipe`
 
 
 ## Running an Example with CamShift tracker
 
-`python3 video_file_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker camshift`
+`python3 video_file_demo.py --use_tracker camshift`
 
 
 
@@ -88,8 +88,8 @@ After that is done downloading, move into the directory.
 ## Running an Example
 
 For TFLite:  
-`python3 video_file_demo.py --model=data/traffic_model.tflite`
+`python3 video_file_demo.py`
 
 For Tensorflow:  
-`python3 video_file_demo.py --model=data/traffic_model.pb`
+`python3 video_file_demo.py`
 
