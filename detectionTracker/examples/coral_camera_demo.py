@@ -48,12 +48,14 @@ def main():
   parser.add_argument(
       '--threshold', type=float, default=0.2, help='class score threshold')
   parser.add_argument(
-      '--use_tracker', type=str, default=None, help='use an object tracker', choices=[None,'BASIC','sort'])
+      '--use_tracker', type=str, default=None, help='use an object tracker', choices=[None,'BASIC','sort','camshift'])
   args = parser.parse_args()
   if args.use_tracker == 'BASIC':
     trackerToBeUsed = vot.Tracker.BASIC
   elif args.use_tracker == 'sort':
     trackerToBeUsed = vot.Tracker.SORT
+  elif args.use_tracker == 'camshift':
+    trackerToBeUsed = vot.Tracker.FAST_INACCURATE
   else:
     trackerToBeUsed = vot.Tracker.NONE
 
@@ -84,6 +86,7 @@ def main():
     # Run inference engine to populate annotations array.
     annotations = []
     if engine.run(timestamp, pil_im, annotations):
+      print (annotations)
       frame = utils.render_bbox(frame, annotations)
 
     # Calculate FPS, then visualize it.
