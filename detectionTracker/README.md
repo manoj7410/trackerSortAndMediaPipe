@@ -84,11 +84,17 @@ After that is done downloading, move into the directory.
 ## Running an Example with sort tracker
 
 `python3 video_file_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker sort`
+
 ## OR to run the demo with Camera
-`python3 coral_camera_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker sort`
+`python3 camera_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker sort`
 
 
 ## Running an Example with MediaPipe tracker
 
-`python3 video_file_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker BASIC`
+`python3 video_file_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker mediapipe`
+
+
+## Running an Example with CamShift tracker
+
+`python3 video_file_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker camshift`
 
