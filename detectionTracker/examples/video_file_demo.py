@@ -69,12 +69,14 @@ def main():
   parser.add_argument(
       '--threshold', type=float, default=0.2, help='class score threshold')
   parser.add_argument(
-      '--use_tracker', type=str, default=None, help='use an object tracker', choices=[None,'BASIC','sort'])
+      '--use_tracker', type=str, default=None, help='use an object tracker', choices=[None,'mediapipe','sort','camshift'])
   args = parser.parse_args()
-  if args.use_tracker == 'BASIC':
+  if args.use_tracker == 'BASIC': #For MediaPipe Object Tracker
     trackerToBeUsed = vot.Tracker.BASIC
-  elif args.use_tracker == 'sort':
+  elif args.use_tracker == 'sort': #For Sort Object Tracker
     trackerToBeUsed = vot.Tracker.SORT
+  elif args.use_tracker == 'camshift': #For CamShift object Tracker
+    trackerToBeUsed = vot.Tracker.FAST_INACCURATE
   else:
     trackerToBeUsed = vot.Tracker.NONE
 
