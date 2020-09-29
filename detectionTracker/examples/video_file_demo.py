@@ -48,8 +48,8 @@ except:
 
 def main():
   default_video = 'data/traffic_frames.mp4'
-  default_model = 'data/traffic_model_edgetpu.tflite'
-  default_labels = 'data/traffic_label_map.pbtxt'
+  default_model = 'data/mobilenet_ssd_v2_coco_quant_postprocess_edgetpu.tflite'
+  default_labels = 'data/coco_labels.txt'
   parser = argparse.ArgumentParser()
   parser.add_argument('--model', help='model path', default=default_model)
   parser.add_argument(

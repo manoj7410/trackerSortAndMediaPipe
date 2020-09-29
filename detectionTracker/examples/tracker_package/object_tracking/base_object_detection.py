@@ -25,7 +25,8 @@ class BaseObjectDetectionInference:
     raise NotImplementedError()
 
   def input_size(self):
-    return Size(256, 256)
+    raise NotImplementedError() 
+    #return Size(300, 300)
 
   def run(self, timestamp, frame, annotations):
     raise NotImplementedError()

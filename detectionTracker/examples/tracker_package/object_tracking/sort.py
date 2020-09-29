@@ -210,6 +210,9 @@ class SortObjectTracker(BaseObjectDetectionInference):
     self.frame_count = 0
     self._object_detection_engine = object_detection_engine
 
+  def input_size(self):
+    return self._object_detection_engine.input_size()
+
   def run(self, timestamp, frame, annotations):
     np_frame = np.array(frame)
 

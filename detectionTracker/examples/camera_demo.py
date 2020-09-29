@@ -26,7 +26,7 @@ Press Q key to exit.
 import argparse
 import time
 from PIL import Image
-from automl_video_ondevice import object_tracking as vot
+from tracker_package import object_tracking as vot
 import utils
 
 try:
@@ -35,8 +35,8 @@ except:
   print("Couldn't load cv2. Try running: sudo apt install python3-opencv.")
 
 current_milli_time = lambda: int(round(time.time() * 1000))
-default_model = 'data/traffic_model_edgetpu.tflite'
-default_labels = 'data/traffic_label_map.pbtxt'
+default_model = 'data/mobilenet_ssd_v2_coco_quant_postprocess_edgetpu.tflite'
+default_labels = 'data/coco_labels.txt'
 
 
 def main():
@@ -86,6 +86,7 @@ def main():
     # Run inference engine to populate annotations array.
     annotations = []
     if engine.run(timestamp, pil_im, annotations):
+    #  print (annotations)
       frame = utils.render_bbox(frame, annotations)
 
     # Calculate FPS, then visualize it.

@@ -55,8 +55,9 @@ class TFLiteObjectDetectionInference(BaseObjectDetectionInference):
     self._load_tflite(tflite_path)
 
   def _load_label_map(self, label_map_path):
-    with open(label_map_path, 'r') as f:
-      _, self.label_list = vot_utils.parse_label_map(f.read())
+    self.label_list =vot_utils.load_labels(label_map_path)
+    #with open(label_map_path, 'r') as f:
+    # _, self.label_list = vot_utils.parse_label_map(f.read())
 
   def _load_tflite(self, tflite_path):
     experimental_delegates = []

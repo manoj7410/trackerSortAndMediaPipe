@@ -59,6 +59,7 @@ def load(frozen_graph_path,
   # Some modules may never even be loaded. Only hotloads what is necessary.
   
   if file_format == Format.TFLITE:
+    print ("Starting TFLITE DETECTION")
     from tracker_package.object_tracking.tflite_object_detection import TFLiteObjectDetectionInference
     engine = TFLiteObjectDetectionInference(frozen_graph_path, label_map_path,
                                             config)

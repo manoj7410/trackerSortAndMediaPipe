@@ -23,7 +23,7 @@ from tracker_package.types import ObjectTrackingAnnotation
 try:
   import platform
   if platform.machine().lower() == 'aarch64':
-    from automl_video_ondevice.object_tracking.mediapipe_tracker.aarch64 import mediapipe_tracker  
+    from tracker_package.object_tracking.mediapipe_tracker.aarch64 import mediapipe_tracker  
   else:
     raise ImportError('Unsupported architecture.')
 except ImportError:
@@ -248,7 +248,7 @@ class MediaPipeObjectTracker(BaseObjectDetectionInference):
       tracked_annotations = self._mediapipe_tracker.process(
           timestamp, converted_detections, np_frame)
 
-      # Converts back to AutoML Video Edge detection structs.
+      # Converts back to Video Edge detection structs.
       for tracked_annotation in tracked_annotations:
         highest_idx = tracked_annotation.score.index(
             max(tracked_annotation.score))

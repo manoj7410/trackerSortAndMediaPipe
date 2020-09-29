@@ -43,6 +43,7 @@ def parse_label_map(label_map):
           r'[\n\s]*}[\n\s]+item[\n\s]*{[\n\s]*', '\n}, \n{\n',
           re.sub(r'[\n\s]*name:\s*"', '\n  "name": "',
                  re.sub(r'\n?\s+id:\s*', ',\n  "id": ', label_map)))) + ']'
+
   parsed_label_map = json.loads(label_map_json)
 
   # TensorFlow maps by id to name.
@@ -55,6 +56,12 @@ def parse_label_map(label_map):
     label_list.append(item['name'])
 
   return label_map, label_list
+
+def load_labels(path):
+    p = re.compile(r'\s*(\d+)(.+)')
+    with open(path, 'r', encoding='utf-8') as f:
+       lines = (p.match(line).groups() for line in f.readlines())
+       return {int(num): text.strip() for num, text in lines}
 
 
 def format_from_filename(filename):
