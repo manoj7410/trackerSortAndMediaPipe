@@ -18,10 +18,10 @@
 Based on filename, the loader will instantiate an inference engine.
 """
 
-from automl_video_ondevice.shot_classification.base_shot_classification import BaseShotClassificationInference
-from automl_video_ondevice.shot_classification.config import ShotClassificationConfig
-from automl_video_ondevice.types import Format
-from automl_video_ondevice.utils import format_from_filename
+from tracker_package.shot_classification.base_shot_classification import BaseShotClassificationInference
+from tracker_package.shot_classification.config import ShotClassificationConfig
+from tracker_package.types import Format
+from tracker_package.utils import format_from_filename
 
 
 def load(frozen_graph_path,

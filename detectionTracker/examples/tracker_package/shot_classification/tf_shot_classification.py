@@ -18,10 +18,10 @@
 import copy
 import numpy as np
 import tensorflow.compat.v1 as tf
-from automl_video_ondevice.shot_classification.base_shot_classification import BaseShotClassificationInference
-from automl_video_ondevice.types import ShotClassificationAnnotation
+from tracker_package.shot_classification.base_shot_classification import BaseShotClassificationInference
+from tracker_package.types import ShotClassificationAnnotation
 
-import automl_video_ondevice.utils as vot_utils
+import tracker_package.utils as vot_utils
 import tensorflow.contrib.tensorrt as trt  
 
 
