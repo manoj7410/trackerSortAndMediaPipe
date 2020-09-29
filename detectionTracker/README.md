@@ -5,16 +5,53 @@ https://github.com/abewley/sort
 https://github.com/google/automl-video-ondevice
 
 
-# AutoML Video Edge Library
+# Object Detection along with Object Tracking 
+The code has been referenced from AutoML video Edge Library of Google. It provides the functionality of
+Object detection along with Sort/CamShift/MediaPipe trackers. Usage are given below:
 
-AutoML Video Edge Library is an open source engine used for inferencing models
-trained using AutoML Video. It supports running Tensorflow, TF-TRT, TFLite, and
-EdgeTPU-optimized TFLite models.
+# For Coral Device
+-------------------
 
-Originally Developed For:
+## Prerequisites
 
-* [Linux Desktop](#for-linux-desktop)
-* [Coral Device](#for-coral-device)
+Make sure you've setup your coral device:
+https://coral.ai/docs/setup
+
+Install the TFLite runtime on your device:
+https://www.tensorflow.org/lite/guide/python
+
+```
+sudo apt-get update
+sudo apt-get install git
+sudo apt-get install python3-opencv
+pip3 install numpy
+```
+
+## Get the Code
+
+`git clone https://github.com/manoj7410/trackerSortAndMediaPipe.git`
+
+After that is done downloading, move into the directory.  
+`cd trackerSortAndMediaPipe/detectionTracker/examples/`
+
+## Running an Example with sort tracker
+
+`python3 video_file_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker sort`
+
+## OR to run the demo with Camera
+`python3 camera_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker sort`
+
+
+## Running an Example with MediaPipe tracker
+
+`python3 video_file_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker mediapipe`
+
+
+## Running an Example with CamShift tracker
+
+`python3 video_file_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker camshift`
+
+
 
 # For Linux Desktop
 -------------------
@@ -55,40 +92,4 @@ For TFLite:
 
 For Tensorflow:  
 `python3 video_file_demo.py --model=data/traffic_model.pb`
-
-# For Coral Device
--------------------
-
-## Prerequisites
-
-Make sure you've setup your coral device:
-https://coral.ai/docs/setup
-
-Install the TFLite runtime on your device:
-https://www.tensorflow.org/lite/guide/python
-
-```
-sudo apt-get update
-sudo apt-get install git
-sudo apt-get install python3-opencv
-pip3 install numpy
-```
-
-## Get the Code
-
-`git clone https://github.com/manoj7410/trackerSortAndMediaPipe.git`
-
-After that is done downloading, move into the directory.  
-`cd trackerSortAndMediaPipe/detectionTracker/examples/`
-
-## Running an Example with sort tracker
-
-`python3 video_file_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker sort`
-## OR to run the demo with Camera
-`python3 coral_camera_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker sort`
-
-
-## Running an Example with MediaPipe tracker
-
-`python3 video_file_demo.py --model=data/traffic_model_edgetpu.tflite --use_tracker BASIC`
 
