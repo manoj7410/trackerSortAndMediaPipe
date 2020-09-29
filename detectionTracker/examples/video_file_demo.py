@@ -71,7 +71,7 @@ def main():
   parser.add_argument(
       '--use_tracker', type=str, default=None, help='use an object tracker', choices=[None,'mediapipe','sort','camshift'])
   args = parser.parse_args()
-  if args.use_tracker == 'BASIC': #For MediaPipe Object Tracker
+  if args.use_tracker == 'mediapipe': #For MediaPipe Object Tracker
     trackerToBeUsed = vot.Tracker.BASIC
   elif args.use_tracker == 'sort': #For Sort Object Tracker
     trackerToBeUsed = vot.Tracker.SORT
