@@ -22,7 +22,7 @@ For Coral devices, you must specify a tflite or _edgetpu.tflite model:
 
 import argparse
 from PIL import Image
-from automl_video_ondevice import object_tracking as vot
+from tracker_package import object_tracking as vot
 
 default_model = 'data/traffic_model_edgetpu.tflite'
 default_labels = 'data/traffic_label_map.pbtxt'

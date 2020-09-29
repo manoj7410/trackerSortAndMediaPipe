@@ -16,7 +16,7 @@
 """Public configuration parameters for object tracking."""
 
 import dataclasses
-from automl_video_ondevice.types import Tracker
+from tracker_package.types import Tracker
 
 
 @dataclasses.dataclass

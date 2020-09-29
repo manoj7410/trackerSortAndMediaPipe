@@ -26,7 +26,7 @@ import argparse
 import time
 import numpy as np
 
-from automl_video_ondevice import object_tracking as vot
+from tracker_package import object_tracking as vot
 import utils
 
 default_model = 'data/traffic_model_edgetpu.tflite'

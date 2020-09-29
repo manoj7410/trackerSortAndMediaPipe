@@ -16,7 +16,7 @@
 """Validates generated tracks and filters out invalidated tracks."""
 
 import dataclasses
-from automl_video_ondevice.types import ObjectTrackingAnnotation
+from tracker_package.types import ObjectTrackingAnnotation
 
 
 def calculate_iou(bbox1, bbox2):

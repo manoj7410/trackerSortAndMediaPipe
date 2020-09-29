@@ -24,13 +24,13 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from skimage import io
-from automl_video_ondevice.object_tracking.base_object_detection import BaseObjectDetectionInference
+from tracker_package.object_tracking.base_object_detection import BaseObjectDetectionInference
 import glob
 import time
 import argparse
 from filterpy.kalman import KalmanFilter
-from automl_video_ondevice.types import NormalizedBoundingBox
-from automl_video_ondevice.types import ObjectTrackingAnnotation
+from tracker_package.types import NormalizedBoundingBox
+from tracker_package.types import ObjectTrackingAnnotation
 
 np.random.seed(0)
 

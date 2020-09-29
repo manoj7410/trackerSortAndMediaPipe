@@ -17,12 +17,12 @@
 
 import numpy as np
 import tensorflow.compat.v1 as tf
-from automl_video_ondevice.object_tracking.base_object_detection import BaseObjectDetectionInference
-from automl_video_ondevice.types import NormalizedBoundingBox
-from automl_video_ondevice.types import ObjectTrackingAnnotation
-from automl_video_ondevice.types import Size
+from tracker_package.object_tracking.base_object_detection import BaseObjectDetectionInference
+from tracker_package.types import NormalizedBoundingBox
+from tracker_package.types import ObjectTrackingAnnotation
+from tracker_package.types import Size
 
-import automl_video_ondevice.utils as vot_utils
+import tracker_package.utils as vot_utils
 import tensorflow.contrib.tensorrt as trt  
 
 

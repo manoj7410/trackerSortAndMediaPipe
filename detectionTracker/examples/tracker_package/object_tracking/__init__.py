@@ -18,16 +18,16 @@
 Based on filename, the loader will instantiate an inference engine.
 """
 
-from automl_video_ondevice.object_tracking.base_object_detection import BaseObjectDetectionInference
-from automl_video_ondevice.object_tracking.camshift_object_tracker import CamshiftObjectTracker
-from automl_video_ondevice.object_tracking.config import ObjectTrackingConfig
-from automl_video_ondevice.types import Format
-from automl_video_ondevice.types import NormalizedBoundingBox
-from automl_video_ondevice.types import ObjectTrackingAnnotation
-from automl_video_ondevice.types import Size
-from automl_video_ondevice.types import Tracker
-from automl_video_ondevice.utils import format_from_filename
-from automl_video_ondevice.object_tracking.sort import *
+from tracker_package.object_tracking.base_object_detection import BaseObjectDetectionInference
+from tracker_package.object_tracking.camshift_object_tracker import CamshiftObjectTracker
+from tracker_package.object_tracking.config import ObjectTrackingConfig
+from tracker_package.types import Format
+from tracker_package.types import NormalizedBoundingBox
+from tracker_package.types import ObjectTrackingAnnotation
+from tracker_package.types import Size
+from tracker_package.types import Tracker
+from tracker_package.utils import format_from_filename
+from tracker_package.object_tracking.sort import *
 
 def load(frozen_graph_path,
          label_map_path,
@@ -59,11 +59,11 @@ def load(frozen_graph_path,
   # Some modules may never even be loaded. Only hotloads what is necessary.
   
   if file_format == Format.TFLITE:
-    from automl_video_ondevice.object_tracking.tflite_object_detection import TFLiteObjectDetectionInference
+    from tracker_package.object_tracking.tflite_object_detection import TFLiteObjectDetectionInference
     engine = TFLiteObjectDetectionInference(frozen_graph_path, label_map_path,
                                             config)
   elif file_format == Format.TENSORFLOW:
-    from automl_video_ondevice.object_tracking.tf_object_detection import TFObjectDetectionInference
+    from tracker_package.object_tracking.tf_object_detection import TFObjectDetectionInference
     engine = TFObjectDetectionInference(frozen_graph_path, label_map_path,
                                         config)
   else:
@@ -72,10 +72,9 @@ def load(frozen_graph_path,
   if config.tracker == Tracker.FAST_INACCURATE:
     return CamshiftObjectTracker(engine, config)
   elif config.tracker == Tracker.BASIC:
-    from automl_video_ondevice.object_tracking.mediapipe_object_tracker import MediaPipeObjectTracker  
+    from tracker_package.object_tracking.mediapipe_object_tracker import MediaPipeObjectTracker  
     return MediaPipeObjectTracker(engine, config)
   elif config.tracker == Tracker.SORT:
-    # import automl_video_ondevice.object_tracking.sort
     return SortObjectTracker(engine, config)
   elif not config.tracker or config.tracker == Tracker.NONE:
     return engine

@@ -16,9 +16,9 @@
 """Provides an implementation of object tracking using TF and TF-TRT."""
 
 import numpy as np
-from automl_video_ondevice.object_tracking.base_object_detection import BaseObjectDetectionInference
-from automl_video_ondevice.types import NormalizedBoundingBox
-from automl_video_ondevice.types import ObjectTrackingAnnotation
+from tracker_package.object_tracking.base_object_detection import BaseObjectDetectionInference
+from tracker_package.types import NormalizedBoundingBox
+from tracker_package.types import ObjectTrackingAnnotation
 
 try:
   import platform

@@ -17,7 +17,7 @@
 
 import cv2
 import numpy as np
-from automl_video_ondevice.object_tracking.base_object_detection import BaseObjectDetectionInference
+from tracker_package.object_tracking.base_object_detection import BaseObjectDetectionInference
 
 
 class SingleTracker:

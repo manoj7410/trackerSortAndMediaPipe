@@ -25,12 +25,12 @@ except:
 	except:
 		print("Can't find the TFLite runtime. Follow directions here: https://www.tensorflow.org/lite/guide/python")
 import platform
-from automl_video_ondevice.object_tracking.base_object_detection import BaseObjectDetectionInference
-from automl_video_ondevice.types import NormalizedBoundingBox
-from automl_video_ondevice.types import ObjectTrackingAnnotation
-from automl_video_ondevice.types import Size
+from tracker_package.object_tracking.base_object_detection import BaseObjectDetectionInference
+from tracker_package.types import NormalizedBoundingBox
+from tracker_package.types import ObjectTrackingAnnotation
+from tracker_package.types import Size
 
-import automl_video_ondevice.utils as vot_utils
+import tracker_package.utils as vot_utils
 
 EDGETPU_SHARED_LIB = {
   'Linux': 'libedgetpu.so.1',

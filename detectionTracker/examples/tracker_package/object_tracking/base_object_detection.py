@@ -15,7 +15,7 @@
 # ==============================================================================
 """Provides the base class for implementing video object tracking inference."""
 
-from automl_video_ondevice.types import Size
+from tracker_package.types import Size
 
 
 class BaseObjectDetectionInference:

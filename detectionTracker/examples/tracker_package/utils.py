@@ -18,7 +18,7 @@
 import json
 import re
 
-from automl_video_ondevice.types import Format
+from tracker_package.types import Format
 
 
 def parse_label_map(label_map):

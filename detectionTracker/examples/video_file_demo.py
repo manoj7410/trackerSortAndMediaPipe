@@ -18,15 +18,7 @@ Can output to either a video file or to the UI (default).
 
 Requires cv2 from `sudo apt-get install python3-opencv`
 
-Note: this specific example uses the EdgeTPU .tflite model. To run inferencing
-on a jetson nano, a .pb file must be passed to the --model argument instead.
-
-For Jetson Nano:
-  python3 examples/video_file_demo.py \
-    --input_video data/traffic_frames.mp4
-    --output_video data/traffic_frames_annotated.mp4
-    --model data/traffic_model_tftrt.pb \
-    --label data/traffic_label_map.pbtxt
+Note: this specific example uses the EdgeTPU .tflite model. 
 
 For Coral Devices:
   python3 examples/video_file_demo.py \
@@ -45,7 +37,7 @@ python3 examples/video_file_demo.py \
 Press Q key to exit.
 """
 import argparse
-from automl_video_ondevice import object_tracking as vot
+from tracker_package import object_tracking as vot
 import utils
 
 try:
