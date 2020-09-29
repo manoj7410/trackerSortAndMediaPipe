@@ -1,4 +1,0 @@
-unknown
-pickup_suv_van
-large_veh_bus
-sedan
