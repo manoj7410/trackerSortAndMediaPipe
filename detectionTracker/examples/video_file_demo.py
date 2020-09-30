@@ -24,15 +24,15 @@ For Coral Devices:
   python3 examples/video_file_demo.py \
     --input_video data/traffic_frames.mp4
     --output_video data/traffic_frames_annotated.mp4
-    --model data/traffic_model_edgetpu.tflite \
-    --label data/traffic_label_map.pbtxt
+    --model data/mobilenet_ssd_v2_coco_quant_postprocess_edgetpu.tflite \
+    --label data/coco_labels.txt
 
 To output to UI instead of file, do not include the "--output_video" argument.
 
 python3 examples/video_file_demo.py \
   --input_video data/traffic_frames.mp4
-  --model data/traffic_model_edgetpu.tflite \
-  --label data/traffic_label_map.pbtxt
+  --model data/mobilenet_ssd_v2_coco_quant_postprocess_edgetpu.tflite \
+  --label data/coco_labels.txt
 
 Press Q key to exit.
 """
