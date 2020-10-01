@@ -91,6 +91,8 @@ def main():
 
     # Calculate FPS, then visualize it.
     fps, latency = fps_calculator.measure()
+    print ('fps =',fps)
+    print ('latency =',latency)
     frame = cv2.putText(frame, '{} fps'.format(fps), (0, 20),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
     frame = cv2.putText(frame, '{} ms'.format(latency), (0, 40),

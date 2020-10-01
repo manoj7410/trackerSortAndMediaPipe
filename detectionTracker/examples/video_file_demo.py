@@ -80,6 +80,7 @@ def main():
 )
   engine = vot.load(args.model, args.labels, config)
   input_size = engine.input_size()
+  fps_calculator = utils.FpsCalculator()
 
   cap = cv2.VideoCapture(args.input_video)
 
@@ -107,6 +108,14 @@ def main():
     annotations = []
     if engine.run(timestamp, resized_frame, annotations):
       frame = utils.render_bbox(frame, annotations)
+    # Calculate FPS, then visualize it.
+    fps, latency = fps_calculator.measure()
+    print ('fps =',fps)
+    print ('latency =',latency)
+    frame = cv2.putText(frame, '{} fps'.format(fps), (0, 20),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+    frame = cv2.putText(frame, '{} ms'.format(latency), (0, 40),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
     if writer:
       writer.write(frame)
