@@ -18,8 +18,8 @@ r"""A demo which runs object detection on camera frames.
 Requires cv2 from `sudo apt-get install python3-opencv`
 
 python3 examples/coral_camera_demo \
-  --model data/traffic_model_edgetpu.tflite \
-  --label data/traffic_label_map.pbtxt
+  --model data/mobilenet_ssd_v2_coco_quant_postprocess_edgetpu.tflite \
+  --label data/coco_labels.txt
 
 Press Q key to exit.
 """
