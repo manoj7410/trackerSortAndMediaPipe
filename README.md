@@ -14,7 +14,7 @@ and follow the instructions in the respective README file.
 
 ## With GStreamer
 1. Sort
-2. <More Trackers To Be Added>
+2. ```*More Trackers To Be Added*'''
 
 ### To run demos with GStreamer go into the directory [gstreamerWithSortTracker](https://github.com/manoj7410/trackerSortAndMediaPipe/tree/master/gstreamerWithSortTracker/gstreamer) 
 and follow the instructions in the respective README file.
