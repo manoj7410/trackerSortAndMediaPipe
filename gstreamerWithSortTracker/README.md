@@ -4,7 +4,8 @@ This repo contains a collection of examples that use camera streams
 together with the [TensorFlow Lite API](https://tensorflow.org/lite) with a
 Coral device such as the
 [USB Accelerator](https://coral.withgoogle.com/products/accelerator) or
-[Dev Board](https://coral.withgoogle.com/products/dev-board).
+[Dev Board](https://coral.withgoogle.com/products/dev-board) and aligns an Object tracker 
+with the detected objects. 
 
 ## Installation
 
@@ -21,13 +22,13 @@ Coral device such as the
     ```
     mkdir google-coral && cd google-coral
 
-    git clone https://github.com/google-coral/examples-camera.git --depth 1
+    git clone https://github.com/manoj7410/trackerSortAndMediaPipe.git
     ```
 
 3.  Download the models:
 
     ```
-    cd examples-camera
+    cd gstreamerWithSortTracker
 
     sh download_models.sh
     ```
@@ -41,47 +42,19 @@ README file for the respective subfolder.
 
 ## Contents
 
-  * __Gstreamer__ Python examples using gstreamer to obtain camera images. These
+  * __Gstreamer__ Python examples using gstreamer to obtain camera streem. These
     examples work on Linux using a webcam, Raspberry Pi with
     the Raspicam and on the Coral DevBoard using the Coral camera. For the
     former two you will also need a Coral USB Accelerator to run the models.
-  * __Raspicam__ Python example using picamera. This is only intended for
-    Raspberry Pi and will require a Coral USB Accelerator.
-    Use ```install_requirements.sh``` to make sure all the dependencies are
-    present.
-  * __PyGame__ Python example using pygame to obtain camera frames.
-    Use ```install_requirements.sh``` to make sure all the dependencies are
-    present.
-  * __OpenCV__ Python example using OpenCV to obtain camera frames.
-    Use ```install_requirements.sh``` to make sure all the dependencies are
-    present.
-  * __NativeApp__ C++ example using gstreamer to obtain camera frames.
-    See README in the nativeapp directory on how to compile for the
-    Coral DevBoard.
-
+  
 ## Canned models
 
-For all the demos in this repository you can change the model and the labels
+For the demos in this repository you can change the model and the labels
 file by using the flags flags ```--model``` and
 ```--labels```. Be sure to use the models labeled _edgetpu, as those are
 compiled for the accelerator -  otherwise the model will run on the CPU and
 be much slower.
 
-For classification you need to select one of the classification models
-and its corresponding labels file:
-
-```
-inception_v1_224_quant_edgetpu.tflite, imagenet_labels.txt
-inception_v2_224_quant_edgetpu.tflite, imagenet_labels.txt
-inception_v3_299_quant_edgetpu.tflite, imagenet_labels.txt
-inception_v4_299_quant_edgetpu.tflite, imagenet_labels.txt
-mobilenet_v1_1.0_224_quant_edgetpu.tflite, imagenet_labels.txt
-mobilenet_v2_1.0_224_quant_edgetpu.tflite, imagenet_labels.txt
-
-mobilenet_v2_1.0_224_inat_bird_quant_edgetpu.tflite, inat_bird_labels.txt
-mobilenet_v2_1.0_224_inat_insect_quant_edgetpu.tflite, inat_insect_labels.txt
-mobilenet_v2_1.0_224_inat_plant_quant_edgetpu.tflite, inat_plant_labels.txt
-```
 
 For detection you need to select one of the SSD detection models
 and its corresponding labels file:
