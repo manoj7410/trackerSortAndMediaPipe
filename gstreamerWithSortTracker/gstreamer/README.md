@@ -24,13 +24,13 @@ USB/PCIe/M.2 Accelerator.
     ```
     mkdir google-coral && cd google-coral
 
-    git clone https://github.com/google-coral/examples-camera --depth 1
+    git clone https://github.com/manoj7410/trackerSortAndMediaPipe.git
     ```
 
 3.  Download the models:
 
     ```
-    cd examples-camera
+    cd gstreamerWithSortTracker/
 
     sh download_models.sh
     ```
@@ -42,6 +42,23 @@ USB/PCIe/M.2 Accelerator.
 
     bash install_requirements.sh
     ```
+## (Optional) Install dependency for Sort Tracker
+```
+pip3 install -r requirements_for_sort_tracker.txt
+```
+See https://github.com/abewley/sort for algorithm details and link to original paper.
+
+## Run the detection model with Sort tracker
+```
+python3 detect.py --tracker sort
+```
+
+## Run the detection demo without any tracker (SSD models)
+
+```
+python3 detect.py
+```
+You can change the model and the labels file using ```--model``` and ```--labels```.
 
 
 ## Run the classification demo
@@ -54,23 +71,6 @@ By default, this uses the ```mobilenet_v2_1.0_224_quant_edgetpu.tflite``` model.
 
 You can change the model and the labels file using flags ```--model``` and ```--labels```.
 
-
-## Run the detection demo (SSD models)
-
-```
-python3 detect.py
-```
-## (Optional) Install dependency for Sort Tracker
-```
-pip3 install -r requirements_for_sort_tracker.txt
-```
-See https://github.com/abewley/sort for algorithm details and link to original paper.
-
-## Run the detection model with Sort tracker
-```
-python3 detect.py --tracker sort
-```
-Likewise, you can change the model and the labels file using ```--model``` and ```--labels```.
 
 By default, both examples use the attached Coral Camera. If you want to use a USB camera,
 edit the ```gstreamer.py``` file and change ```device=/dev/video0``` to ```device=/dev/video1```.
